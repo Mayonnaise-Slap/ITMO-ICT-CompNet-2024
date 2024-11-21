@@ -1,0 +1,70 @@
+---
+# tasks file for caddy_deploy
+
+- name: Install prerequisites
+  apt:
+    pkg:
+    - debian-keyring
+    - debian-archive-keyring
+    - apt-transport-https
+    - curl
+
+
+
+- name: Add ad-hoc files for task 1
+  ansible.builtin.shell:
+    cmd: "echo test_file_content > {{ ansible_env.HOME }}/test.txt"
+  args:
+    creates: "{{ ansible_env.HOME }}/test.txt"
+  when: ansible_env.HOME is defined
+
+- name: change file contents before deleting it
+
+  ansible.builtin.shell:
+    cmd: "echo altered_text_for_file > {{ ansible_env.HOME }}/test.txt"
+  args:
+    creates: "{{ ansible_env.HOME }}/test.txt"
+  when: ansible_env.HOME is defined
+
+- name: Delete the test file if it exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/test.txt"
+    state: absent
+  when: ansible_env.HOME is defined
+
+
+
+- name: Add key for Caddy repo
+  apt_key:
+    url: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
+    state: present
+    keyring: /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+
+- name: add Caddy repo
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main"
+    state: present
+    filename: caddy-stable
+
+- name: add Caddy src repo
+  apt_repository:
+    repo: "deb-src [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main"
+    state: present
+    filename: caddy-stable
+
+- name: Install Caddy webserver
+  apt:
+    name: caddy
+    update_cache: yes
+    state: present
+
+
+- name: Create config file
+  template:
+    src: templates/Caddyfile.j2  # Откуда берем
+    dest: /etc/caddy/Caddyfile  # Куда кладем
+
+- name: Reload with new config
+  service:
+    name: caddy
+    state: reloaded

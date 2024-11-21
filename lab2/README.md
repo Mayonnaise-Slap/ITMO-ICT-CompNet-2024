@@ -70,6 +70,8 @@ ansible.builtin.file гораздо лучше подходит для этой 
 
 ### Результаты
 
+Все файлы можно посмотреть в этом репозитории в папке lab-2
+
 ![img.png](img.png)
 
 ### Получившийся tasks/main.yml
@@ -146,3 +148,6 @@ ansible.builtin.file гораздо лучше подходит для этой 
     name: caddy
     state: reloaded
 ```
+
+## Выводы
+
