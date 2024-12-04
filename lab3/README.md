@@ -8,7 +8,13 @@
 2. Создали compose файл.
 3. Создали postgres0.yml и postgres1.eml файлы.
 4. Задеплоили
-   ![image]()
+   
+   ![4f280952-ab9b-47f3-beba-c2863e93ed5e-1.jpg](https://ltdfoto.ru/images/2024/12/04/4f280952-ab9b-47f3-beba-c2863e93ed5e-1.jpg)
+   ![photo_5368530501356348155_x.jpg](https://ltdfoto.ru/images/2024/12/04/photo_5368530501356348155_x.jpg)
+   ![1c350cdc-2ddc-4a9a-ba2b-6afc0ac28dd3.jpg](https://ltdfoto.ru/images/2024/12/04/1c350cdc-2ddc-4a9a-ba2b-6afc0ac28dd3.jpg)
+   ![91f14a0d-aadb-44df-a2b9-e22f0eebfede.jpg](https://ltdfoto.ru/images/2024/12/04/91f14a0d-aadb-44df-a2b9-e22f0eebfede.jpg)
+   ![4c7090cd-3ce8-4d5c-b418-f5eab2cc3d14.jpg](https://ltdfoto.ru/images/2024/12/04/4c7090cd-3ce8-4d5c-b418-f5eab2cc3d14.jpg)
+   ![c2030d7e-d5bd-4b8b-81b3-62f42e8c1e9b.jpg](https://ltdfoto.ru/images/2024/12/04/c2030d7e-d5bd-4b8b-81b3-62f42e8c1e9b.jpg)
 
 ## Часть 2. Проверяем репликацию
 
@@ -17,8 +23,10 @@
 ## Ответы на вопросы:
 1. *Порты 8008 и 5432 вынесены в разные директивы, expose и ports. По сути, если записать 8008 в ports, то он тоже станет exposed. В
 чем разница?*
+
    Порты, вынесенные в expose, доступны только для других контейнеров, а вынесенные в ports доступны извне.
 
 3. *При обычном перезапуске композ-проекта, будет ли сбилден заново образ? А если предварительно отредактировать файлы
 postgresX.yml? А если содержимое самого Dockerfile? Почему?*
+
    Нет, во всех случаях образ не будет сбилден заново, потому что образы в docker кэшируются для оптимизации.
