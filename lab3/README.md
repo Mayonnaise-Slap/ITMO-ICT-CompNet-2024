@@ -9,12 +9,12 @@
 3. Создали postgres0.yml и postgres1.eml файлы.
 4. Задеплоили
    
-   ![4f280952-ab9b-47f3-beba-c2863e93ed5e-1.jpg](https://ltdfoto.ru/images/2024/12/04/4f280952-ab9b-47f3-beba-c2863e93ed5e-1.jpg)
-   ![photo_5368530501356348155_x.jpg](https://ltdfoto.ru/images/2024/12/04/photo_5368530501356348155_x.jpg)
-   ![1c350cdc-2ddc-4a9a-ba2b-6afc0ac28dd3.jpg](https://ltdfoto.ru/images/2024/12/04/1c350cdc-2ddc-4a9a-ba2b-6afc0ac28dd3.jpg)
-   ![91f14a0d-aadb-44df-a2b9-e22f0eebfede.jpg](https://ltdfoto.ru/images/2024/12/04/91f14a0d-aadb-44df-a2b9-e22f0eebfede.jpg)
-   ![4c7090cd-3ce8-4d5c-b418-f5eab2cc3d14.jpg](https://ltdfoto.ru/images/2024/12/04/4c7090cd-3ce8-4d5c-b418-f5eab2cc3d14.jpg)
-   ![c2030d7e-d5bd-4b8b-81b3-62f42e8c1e9b.jpg](https://ltdfoto.ru/images/2024/12/04/c2030d7e-d5bd-4b8b-81b3-62f42e8c1e9b.jpg)
+   ![image](https://github.com/Mayonnaise-Slap/ITMO-ICT-CompNet-2024/blob/lab3/lab3/4f280952-ab9b-47f3-beba-c2863e93ed5e%20(1).jfif)
+   ![image](https://github.com/Mayonnaise-Slap/ITMO-ICT-CompNet-2024/blob/lab3/lab3/4f280952-ab9b-47f3-beba-c2863e93ed5e%20(1).jfif)
+   ![image](https://github.com/Mayonnaise-Slap/ITMO-ICT-CompNet-2024/blob/lab3/lab3/1c350cdc-2ddc-4a9a-ba2b-6afc0ac28dd3.jfif)
+   ![image](https://github.com/Mayonnaise-Slap/ITMO-ICT-CompNet-2024/blob/lab3/lab3/91f14a0d-aadb-44df-a2b9-e22f0eebfede.jfif)
+   ![image](https://github.com/Mayonnaise-Slap/ITMO-ICT-CompNet-2024/blob/lab3/lab3/4c7090cd-3ce8-4d5c-b418-f5eab2cc3d14.jfif)
+   ![image](https://github.com/Mayonnaise-Slap/ITMO-ICT-CompNet-2024/blob/lab3/lab3/c2030d7e-d5bd-4b8b-81b3-62f42e8c1e9b.jfif)
 
 ## Часть 2. Проверяем репликацию
 
