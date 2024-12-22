@@ -63,30 +63,48 @@ docker-compose ps
 
 Любым способом выключаем доступ до ноды, которая сейчас является мастером (например, через docker stop). Некоторое время ждем, после этого анализируем логи и так же пытаемся считать/записать что-то в БД через entrypoint подключение. Затем необходимо расписать, получилось или нет, а так же объяснить, что в итоге произошло после принудительного выключения мастера (со скриншотами)
 
-![image](https://github.com/user-attachments/assets/2425b053-d332-4475-9615-e3a86f56ffce)
-Отключение мастер ноды 
-
-![image](https://github.com/user-attachments/assets/966a3272-f74b-467f-bcc7-fa8f5cc8566d)
-
-![image](https://github.com/user-attachments/assets/b43c6cca-bade-4edc-8ecb-f453171d15d8)
-
-Команда - docker exec -it pg-slave patronictl -c /postgres1.yml list
-![image](https://github.com/user-attachments/assets/c7d16222-d773-4fba-a6f8-9ad7ba070812)
-
-Команда - docker stop pg-master
-
+```bash
+root@oo5:~# cd lab-3/
+root@oo5:~/lab-3# docker-compose ps  # проверяем крутящиеся контейнеры
+       Name                      Command               State                                         Ports                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------
+pg-master             docker-entrypoint.sh patro ...   Up      0.0.0.0:5433->5432/tcp,:::5433->5432/tcp, 8008/tcp                                
+pg-slave              docker-entrypoint.sh patro ...   Up      0.0.0.0:5434->5432/tcp,:::5434->5432/tcp, 8008/tcp                                
+postgres_entrypoint   docker-entrypoint.sh hapro ...   Up      0.0.0.0:5432->5432/tcp,:::5432->5432/tcp, 0.0.0.0:7000->7000/tcp,:::7000->7000/tcp
+zoo                   /etc/confluent/docker/run        Up      0.0.0.0:2181->2181/tcp,:::2181->2181/tcp, 2888/tcp, 3888/tcp                      
+root@oo5:~/lab-3# docker exec -it pg-slave patronictl -c /postgres1.yml list  # проверяем точку зрения слэйва на текущую ситуацию
++ Cluster: my_cluster (7447122583266881560) --+----+-----------+
+| Member      | Host      | Role    | State   | TL | Lag in MB |
++-------------+-----------+---------+---------+----+-----------+
+| postgresql0 | pg-master | Leader  | running |  3 |           |
+| postgresql1 | pg-slave  | Replica | running |  4 |         0 |
++-------------+-----------+---------+---------+----+-----------+
+root@oo5:~/lab-3# docker stop pg-master  # Убиваем мастера
 pg-master
-
-Команда - docker exec -it pg-slave patronictl -c /postgres1.yml list
-![image](https://github.com/user-attachments/assets/dbb1d814-de5e-44c8-a5b4-eb1adab4284c)
-
-![image](https://github.com/user-attachments/assets/5cc4f8f4-5f23-4696-9466-72dc3841ab93)
+root@oo5:~/lab-3# docker-compose ps
+       Name                      Command                State                                           Ports                                       
+----------------------------------------------------------------------------------------------------------------------------------------------------
+pg-master             docker-entrypoint.sh patro ...   Exit 137                                                                                     
+pg-slave              docker-entrypoint.sh patro ...   Up         0.0.0.0:5434->5432/tcp,:::5434->5432/tcp, 8008/tcp                                
+postgres_entrypoint   docker-entrypoint.sh hapro ...   Up         0.0.0.0:5432->5432/tcp,:::5432->5432/tcp, 0.0.0.0:7000->7000/tcp,:::7000->7000/tcp
+zoo                   /etc/confluent/docker/run        Up         0.0.0.0:2181->2181/tcp,:::2181->2181/tcp, 2888/tcp, 3888/tcp                      
+root@oo5:~/lab-3# docker exec -it pg-slave patronictl -c /postgres1.yml list
++ Cluster: my_cluster (7447122583266881560) +----+-----------+
+| Member      | Host     | Role   | State   | TL | Lag in MB |
++-------------+----------+--------+---------+----+-----------+
+| postgresql1 | pg-slave | Leader | running |  4 |           |
++-------------+----------+--------+---------+----+-----------+
+```
 
 Слейв нода теперь имеет роль мастера.
 
-В докерфайлы была добавлена строка 
+В файлы postgres0/1.yml была добавлена строка 
 
-![image](https://github.com/user-attachments/assets/a4a05779-ce61-4658-b61f-40247b2f5807)
+```yml
+bootstrap:
+  dcs:
+    synchronous_mode_strict: false
+```
 
 ## Ответы на вопросы:
 
