@@ -59,6 +59,35 @@ docker-compose ps
 Все конфигурационные файлы можно посмотреть в папке files, это копия файлов с 
 удаленного сервера. 
 
+## Задание
+
+Любым способом выключаем доступ до ноды, которая сейчас является мастером (например, через docker stop). Некоторое время ждем, после этого анализируем логи и так же пытаемся считать/записать что-то в БД через entrypoint подключение. Затем необходимо расписать, получилось или нет, а так же объяснить, что в итоге произошло после принудительного выключения мастера (со скриншотами)
+
+![image](https://github.com/user-attachments/assets/2425b053-d332-4475-9615-e3a86f56ffce)
+Отключение мастер ноды 
+
+![image](https://github.com/user-attachments/assets/966a3272-f74b-467f-bcc7-fa8f5cc8566d)
+
+![image](https://github.com/user-attachments/assets/b43c6cca-bade-4edc-8ecb-f453171d15d8)
+
+Команда - docker exec -it pg-slave patronictl -c /postgres1.yml list
+![image](https://github.com/user-attachments/assets/c7d16222-d773-4fba-a6f8-9ad7ba070812)
+
+Команда - docker stop pg-master
+
+pg-master
+
+Команда - docker exec -it pg-slave patronictl -c /postgres1.yml list
+![image](https://github.com/user-attachments/assets/dbb1d814-de5e-44c8-a5b4-eb1adab4284c)
+
+![image](https://github.com/user-attachments/assets/5cc4f8f4-5f23-4696-9466-72dc3841ab93)
+
+Слейв нода теперь имеет роль мастера.
+
+В докерфайлы была добавлена строка 
+
+![image](https://github.com/user-attachments/assets/a4a05779-ce61-4658-b61f-40247b2f5807)
+
 ## Ответы на вопросы:
 
 1) *Порты 8008 и 5432 вынесены в разные директивы, expose и ports. По сути, если записать
@@ -74,3 +103,4 @@ docker-compose ps
 
 - Нет, во всех случаях образ не будет сбилден заново, потому что образы в docker
   кэшируются для оптимизации.
+  
